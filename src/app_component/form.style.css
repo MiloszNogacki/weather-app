@@ -1,0 +1,46 @@
+
+*
+{
+    background-color: aliceblue;
+
+}
+
+form {
+    margin-top: 3rem;
+}
+
+form input[name="city"]
+{
+    background-color: transparent;
+    color: white;
+    border-bottom: 2px solid wheat;
+    border-radius: 0;
+}
+form input[name="country"]{
+    background-color: transparent;
+    color: white;
+    border-bottom: 2px solid wheat;
+    border-radius: 0;
+
+}
+/*form input:focus{*/
+/*    background-color: transparent;*/
+/*    box-shadow: none;*/
+/*}*/
+.col md-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+}
+.card_1 {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    word-wrap: break-word;
+}
