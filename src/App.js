@@ -1,10 +1,12 @@
 import React from 'react';
 import './App.css';
+
 import 'bootstrap/dist/css/bootstrap.min.css'
 import "bootstrap/dist/css/bootstrap-grid.min.css";
 import "weather-icons/css/weather-icons.css"
 import Weather from "./app_component/weather.component";
 import Form from './app_component/form.component'
+
 
 const API_key = '7495b7d572c110dfb1964ff8ad44d3ce';
 
@@ -14,12 +16,17 @@ class App extends React.Component{
     constructor() {
         super();
         this.state = {
+            cityy: undefined,
             city: undefined,
             icon: undefined,
             main: undefined,
             temp: undefined,
             temp_max: undefined,
             temp_min: undefined,
+            wind_speed: undefined,
+            wind_deg: undefined,
+            lat: undefined,
+            lon: undefined,
             error: false
         };
 
@@ -69,6 +76,8 @@ get_WeatherIcon(icons, rangeID){
         }
 }
 
+
+
     getWeather = async (e) => {
 
         e.preventDefault();
@@ -80,7 +89,7 @@ get_WeatherIcon(icons, rangeID){
 
         const response = await api_call.json();
         let res = Number.parseFloat(response.cod);
-        //console.log(res === 200);
+
 
         if (res === 200) {
             this.setState({
@@ -89,6 +98,9 @@ get_WeatherIcon(icons, rangeID){
                 temp_max: this.calCelcius(response.main.temp_max),
                 temp_min: this.calCelcius(response.main.temp_min),
                 description: response.weather[0].description,
+                wind_speed: response.wind.speed,
+                wind_deg: response.wind.deg,
+
                 error: false,
 
 
@@ -103,30 +115,42 @@ get_WeatherIcon(icons, rangeID){
                 temp_min: undefined,
                 description: undefined,
                 city: undefined,
-                icon: undefined
+                wind_speed: undefined,
+                wind_deg: undefined,
+                icon: undefined,
+
 
 
             });
         }
 
         if (res === 200) {
-            this.get_WeatherIcon(this.weatherIcon, response.weather[0].id)
+
+            this.get_WeatherIcon(this.weatherIcon, response.weather[0].id);
+
         }
         };
 
-    render() {
+
+
+        render() {
         return(
             <div className="App">
-                <Form loadweather = {this.getWeather}></Form>
+                <Form loadweather = {this.getWeather}> </Form>
+
                 <Weather city = {this.state.city}
 
                          temp={this.state.temp}
                          temp_max = {this.state.temp_max}
                          temp_min = {this.state.temp_min}
-                         description = {this.state.description}
+                        description = {this.state.description}
                           icon={this.state.icon}
+                         wind_speed={this.state.wind_speed}
+                         wind_deg={this.state.wind_deg}
                          error = {this.state.error}
                 />
+
+
             </div>
         );
     }
